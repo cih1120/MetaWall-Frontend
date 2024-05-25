@@ -44,6 +44,7 @@ body:after {
             transparent 1px,
             transparent 100px
         );
+    background-color: #efece7;
     background-size: 50px 50px;
     z-index: -1;
 }

@@ -1,22 +1,39 @@
 export interface IUser {
+  _id: string,
+  name: string,
+}
+
+export interface IUserProfile extends IUser {
   id: string,
   avatar?: string,
-  name: string
+  gender: Gender,
+  email: string,
+  createdAt: Date,
+  followers: IUser[],
+  following: IUser[]
 }
 
 export interface IComment {
-  author: IUser,
-  id: string,
+  user: IUser,
+  _id: string,
   content: string,
-  date: Date,
+  createdAt: Date,
 }
 
 export interface IPost {
-  author: IUser,
-  id: string,
+  user: IUser,
+  _id: string,
+  title: string,
   content: string,
-  date: Date,
+  createdAt: Date,
   likes: number,
   photo?: string,
   comments?: IComment[],
 }
+
+export enum TIME_SORT {
+  ASC = 'asc',
+  DESC = 'desc'
+}
+
+export type Gender = 'female' | 'male'

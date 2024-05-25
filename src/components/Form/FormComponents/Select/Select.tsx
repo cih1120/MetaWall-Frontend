@@ -1,4 +1,5 @@
 'use client'
+import React, { Dispatch } from 'react'
 import { Select, SelectItem } from '@nextui-org/react'
 type SelectProps = {
     value: string
@@ -6,11 +7,19 @@ type SelectProps = {
 }
 export default function CustomSelect({
     data,
-    onChange,
+    setValue,
+    values,
 }: {
     data: SelectProps[]
-    onChange?: React.ChangeEventHandler<HTMLSelectElement> | undefined
+    setValue: Dispatch<any>
+    values: string
 }) {
+    const handleSelectionChange: React.ChangeEventHandler<HTMLSelectElement> = (
+        e
+    ) => {
+        setValue(e.target.value)
+    }
+
     return (
         <>
             <Select
@@ -22,8 +31,8 @@ export default function CustomSelect({
                     base: 'h-fit border-2 border-gray-dark min-w-[156px]',
                     popoverContent: 'border-2 border-gray-dark rounded-none',
                 }}
-                defaultSelectedKeys={['desc']}
-                onChange={onChange}
+                selectedKeys={[values]}
+                onChange={handleSelectionChange}
             >
                 {data.map((item) => (
                     <SelectItem key={item.value} value={item.value}>
