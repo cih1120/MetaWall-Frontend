@@ -44,7 +44,9 @@ export default function LoginForm() {
         if (result?.error) {
             setErrorMessage(errorConfig, setError, result.error)
         } else {
-            toast.success('登入成功🎉 請等待跳轉！')
+            toast.success('登入成功🎉 請等待跳轉！', {
+                duration: 9999,
+            })
             setTimeout(() => {
                 router.push('/')
             }, 1000)

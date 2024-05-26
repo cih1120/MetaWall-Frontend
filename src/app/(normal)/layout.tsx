@@ -1,9 +1,11 @@
+import { getServerSessionUser } from '@/lib/action'
 import Header from '@/components/Header'
 import AddPostModal from '@/components/Modals/AddPost'
 
-export default function Layout({
+export default async function Layout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
+    // const user = await getServerSessionUser()
     return (
         <section>
             <Header />

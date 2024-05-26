@@ -4,12 +4,12 @@ import Image from 'next/image'
 import { HandThumbUpIcon, BellIcon } from '@heroicons/react/24/solid'
 import { addPostModalStore } from '@/store/modal/modalStore'
 import MainButton from '../Form/FormComponents/MainButton'
+import { useUserStore } from '@/store/user/userStore'
 
 type asideListType = { type: string; value: string; icon: string }
 export default function Aside() {
     const { onOpen } = addPostModalStore()
     const asideList: asideListType[] = [
-        { type: 'avatar', value: '邊緣小杰', icon: '' },
         { type: 'follow', value: '追蹤名單', icon: 'Bell' },
         { type: 'like', value: '我按讚的文章', icon: 'ThumbsUp' },
     ]
@@ -39,16 +39,7 @@ const AsideList = function ({ listItem }: { listItem: asideListType }) {
     return (
         <li className="flex items-center gap-4">
             <MainButton background="normal" shape="round" className="h-12 w-12">
-                {listItem.type == 'avatar' ? (
-                    <Image
-                        width={50}
-                        height={50}
-                        alt={listItem.value}
-                        src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-                    />
-                ) : (
-                    Icon
-                )}
+                {Icon}
             </MainButton>
             <p className=" text-medium">{listItem.value}</p>
         </li>

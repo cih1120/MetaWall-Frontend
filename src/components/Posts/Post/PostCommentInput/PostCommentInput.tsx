@@ -1,12 +1,11 @@
-import { Avatar, Input, Button } from '@nextui-org/react'
-
+import { Input, Button } from '@nextui-org/react'
+import Avatar from '@/components/Avatar'
+import { useUserStore } from '@/store/user/userStore'
 export default function PostCommentInput() {
+    const { avatar, name } = useUserStore()
     return (
         <div className="mt-3 flex items-center gap-2">
-            <Avatar
-                src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-                className="h-10 w-10"
-            />
+            <Avatar isBordered={false} src={avatar} name={name} />
             <div className="flex h-fit w-full border-2 border-gray-dark">
                 <Input
                     type="text"

@@ -3,14 +3,15 @@ import { getServerSession } from 'next-auth/next'
 import Image from 'next/image'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import welcome_img from './img.svg'
+import { getServerSessionUser } from '@/lib/action'
 
 export default async function AuthLayout({
     children,
 }: Readonly<{
     children: React.ReactNode
 }>) {
-    const session = await getServerSession(authOptions)
-    if (session) {
+    const user = await getServerSessionUser()
+    if (user) {
         redirect('/')
     }
     return (

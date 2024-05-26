@@ -5,6 +5,7 @@ import './globals.css'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import Provider from '@/components/Provider'
 import SessionProvider from '@/components/SessionProvider'
+import { getUserProfile } from '@/service/auth.service'
 
 const azeretMono = Azeret_Mono({
     subsets: ['latin'],
@@ -29,6 +30,10 @@ export default async function RootLayout({
     children: React.ReactNode
 }>) {
     const session = await getServerSession(authOptions)
+    let user
+    if (session) {
+        user = await getUserProfile(session.user.token)
+    }
     return (
         <html lang="en">
             <body
@@ -36,7 +41,7 @@ export default async function RootLayout({
                 className={`${notoSans.className} ${azeretMono.variable} ${paytoneOne.variable}`}
             >
                 <SessionProvider session={session}>
-                    <Provider>{children}</Provider>
+                    <Provider user={user}>{children}</Provider>
                 </SessionProvider>
             </body>
         </html>

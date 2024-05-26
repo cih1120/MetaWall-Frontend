@@ -1,17 +1,16 @@
 'use client'
-import { Avatar } from '@nextui-org/react'
+import Avatar from '@/components/Avatar'
+import { useUserStore } from '@/store/user/userStore'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 
 export default function DropMenu() {
+    const { name, avatar } = useUserStore()
     return (
         <button className="group relative flex gap-2">
-            <Avatar
-                isBordered
-                src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-            />
+            <Avatar src={avatar} name={name} />
             <h5 className="border-0 border-b-4 border-gray-dark font-paytoneOne">
-                Member
+                {name}
             </h5>
             <div className="back-rectangle absolute left-0 top-full">
                 <ul className="hidden w-max border-2 border-gray-dark bg-white group-hover:block">

@@ -33,7 +33,7 @@ export const getUserProfile = (token: TokenType) => {
       if (res?.status === "success" && res?.data) {
         return res.data.user
       } else {
-        throw new Error('get UserProfile failed');
+        throw new ApiError('Unexpected response format', 500);
       }
-    }).catch(err => { throw err })
+    })
 }

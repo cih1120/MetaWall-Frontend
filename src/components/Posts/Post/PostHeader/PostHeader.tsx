@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import moment from 'moment'
 import Link from 'next/link'
-import { Avatar } from '@nextui-org/react'
 import { IUser } from '@/types'
+import Avatar from '@/components/Avatar'
 
 export interface IPostHeader {
     user: IUser
@@ -15,13 +15,7 @@ export default function PostHeader({ user, createdAt }: IPostHeader) {
     }, [createdAt])
     return (
         <div className="flex gap-4">
-            <Avatar
-                isBordered
-                src={
-                    user?.avatar ||
-                    'https://i.pravatar.cc/150?u=a042581f4e29026024d'
-                }
-            />
+            <Avatar src={user?.avatar} name={user.name} />
             <div>
                 <Link href="/" className="font-bold">
                     {user.name}
