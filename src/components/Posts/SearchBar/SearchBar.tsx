@@ -17,7 +17,7 @@ export default function SearchBar({
         <div className="flex h-fit w-full border-2 border-gray-dark">
             <Input
                 isCombine
-                placeholder="搜尋貼文"
+                placeholder="搜尋貼文內容"
                 value={value}
                 setValue={setValue}
             />

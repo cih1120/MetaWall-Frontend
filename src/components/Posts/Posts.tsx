@@ -31,7 +31,7 @@ export default function Posts({ posts }: { posts: IPost[] }) {
 
     useEffect(() => {
         setFilterPost(posts)
-    }, [])
+    }, [posts])
 
     return (
         <>

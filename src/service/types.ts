@@ -7,7 +7,7 @@ export type IApiQueries = {
 export type TokenType = string;
 
 export interface IApiGet {
-  baseUrl?: string, url: string, queries?: IApiQueries, token?: TokenType,
+  baseUrl?: string, url: string, queries?: IApiQueries, token?: TokenType, tags?: string[]
 }
 
 export interface IApiPost extends IApiGet {
@@ -25,6 +25,11 @@ export interface IApiResult<T> {
 export interface IPostReq extends IApiQueries {
   timeSort: TIME_SORT,
   q?: string
+}
+
+export interface INewPostReq extends IApiQueries {
+  title: string,
+  content: string
 }
 
 /* auth */

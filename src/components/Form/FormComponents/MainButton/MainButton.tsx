@@ -7,6 +7,7 @@ interface IButtonProps
     extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'>,
         VariantProps<typeof buttonVariants> {
     buttonType?: 'button' | 'submit' | 'reset'
+    isDisabled?: boolean
 }
 
 const buttonVariants = cva(
@@ -17,6 +18,7 @@ const buttonVariants = cva(
                 primary: 'bg-primary text-white',
                 accent: 'bg-accent text-black',
                 normal: 'bg-primary text-primary-light',
+                disabled: 'bg-gray-400 text-gray-700',
             },
             shape: {
                 round: 'rounded-full',
@@ -25,6 +27,7 @@ const buttonVariants = cva(
             solid: {
                 normal: '',
                 strong: 'shadow-[-2px_2px_0_#000400] hover:-translate-x-0.5 hover:translate-y-0.5 hover:shadow-none',
+                disabled: 'shadow-none',
             },
         },
         defaultVariants: {
@@ -42,15 +45,23 @@ export default function Button({
     children,
     className,
     buttonType,
+    isDisabled,
     ...props
 }: IButtonProps) {
     return (
         <button
             className={twMerge(
-                clsx(buttonVariants({ background, shape, solid })),
+                clsx(
+                    buttonVariants({
+                        background: isDisabled ? 'disabled' : background,
+                        shape,
+                        solid: isDisabled ? 'disabled' : solid,
+                    })
+                ),
                 className
             )}
             type={buttonType ? buttonType : 'button'}
+            disabled={isDisabled}
             {...props}
         >
             {children}

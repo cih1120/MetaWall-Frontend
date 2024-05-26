@@ -31,13 +31,16 @@ export class ApiError extends Error {
 
 
 const api = {
-  get: async ({ baseUrl: newBaeUrl, url, queries, token }: IApiGet) => {
+  get: async ({ baseUrl: newBaeUrl, url, queries, token, tags }: IApiGet) => {
     try {
       let reqUrl = `${newBaeUrl || baseUrl}${url}`;
       if (queries) {
         reqUrl += `?${Object.keys(queries).map(k => `${k}=${queries[k]}`).join("&")}`
       }
-      const config = token ? authConfig(token) : defaultConfig
+      const config = {
+        ...token ? authConfig(token) : defaultConfig,
+        next: tags ? { tags: tags } : undefined
+      };
       const res = await axios.get(reqUrl, config);
       return res.data;
     } catch (error) {

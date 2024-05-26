@@ -1,26 +1,65 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
     Modal,
     ModalContent,
     ModalHeader,
     ModalBody,
     ModalFooter,
-    Button,
     useDisclosure,
-    Textarea,
+    Input,
 } from '@nextui-org/react'
-import {addPostModalStore} from '@/store/modal/modalStore'
+import toast from 'react-hot-toast'
+import { getSessionUser } from '@/lib/utils'
+import { revalidateIndexPost } from '@/lib/action'
+import MainButton from '@/components/Form/FormComponents/MainButton'
+import TextArea from '@/components/Form/FormComponents/TextArea'
+import { addPostModalStore } from '@/store/modal/modalStore'
+import { addPost } from '@/service/posts.service'
 
 export default function AddPostModal() {
-    const { isOpen, onOpen, onOpenChange } = useDisclosure()
+    const user = getSessionUser()
+    const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure()
     const { init } = addPostModalStore()
     useEffect(() => {
         init(isOpen, onOpen, onOpenChange)
     }, [])
 
+    const [postTitle, setPostTitle] = useState('')
+    const [postContent, setPostContent] = useState('')
+
+    const isSubmitDisabled = useMemo(() => {
+        return postContent.trim().length == 0 || postTitle.trim().length == 0
+    }, [postTitle, postContent])
+
+    const onSubmit = async () => {
+        try {
+            if (isSubmitDisabled || !user) {
+                return
+            }
+            await addPost(
+                { title: postTitle, content: postContent },
+                user.token
+            )
+            setPostTitle('')
+            setPostContent('')
+            toast.success('新增成功！')
+            await revalidateIndexPost()
+            onClose()
+        } catch {
+            toast.error('系統錯誤，請稍後重新嘗試。')
+        }
+    }
+
     return (
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <Modal
+            isOpen={isOpen}
+            onClose={onClose}
+            onOpenChange={onOpenChange}
+            radius="sm"
+            size="lg"
+            classNames={{ base: 'border-2 border-gray-dark' }}
+        >
             <ModalContent>
                 {(onClose) => (
                     <>
@@ -29,28 +68,35 @@ export default function AddPostModal() {
                         </ModalHeader>
                         <ModalBody>
                             <div>
-                                <h5>貼文內容</h5>
-                                <Textarea
-                                    isDisabled
-                                    label="Description"
-                                    labelPlacement="outside"
-                                    placeholder="Enter your description"
-                                    defaultValue="NextUI is a React UI library that provides a set of accessible, reusable, and beautiful components."
-                                    className="max-w-xs"
+                                <Input
+                                    autoFocus
+                                    type="text"
+                                    variant="underlined"
+                                    placeholder="貼文標題"
+                                    classNames={{ innerWrapper: 'pb-0' }}
+                                    className="mb-4"
+                                    value={postTitle}
+                                    onChange={(e) =>
+                                        setPostTitle(e.target.value)
+                                    }
+                                />
+                                <TextArea
+                                    value={postContent}
+                                    setValue={setPostContent}
+                                    placeholder="想說些什麼？"
                                 />
                             </div>
                         </ModalBody>
                         <ModalFooter>
-                            <Button
-                                color="danger"
-                                variant="light"
-                                onPress={onClose}
+                            <MainButton
+                                background="normal"
+                                solid="strong"
+                                className=" px-4 py-2"
+                                isDisabled={isSubmitDisabled}
+                                onClick={onSubmit}
                             >
-                                Close
-                            </Button>
-                            <Button color="primary" onPress={onClose}>
-                                Action
-                            </Button>
+                                發佈
+                            </MainButton>
                         </ModalFooter>
                     </>
                 )}
