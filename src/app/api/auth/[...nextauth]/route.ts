@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
-import { signIn, getUserProfile } from "@/service/auth.service";
+import { signIn } from "@/service/auth.service";
 import { NextAuthUserType } from "@/next-auth"
 
 export const authOptions: NextAuthOptions = {
@@ -38,9 +38,15 @@ export const authOptions: NextAuthOptions = {
       return baseUrl
     },
     async session({ session, user, token }) {
+      if (typeof token.token === "string") {
+        session.user.token = token.token;
+      }
       return session
     },
     async jwt({ token, user, account, profile }) {
+      if (user) {
+        token.token = user.token;
+      }
       return token
     }
   }
