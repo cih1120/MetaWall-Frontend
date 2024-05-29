@@ -2,12 +2,14 @@ import React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import clsx from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { Spinner } from '@nextui-org/react'
 
 interface IButtonProps
     extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'>,
         VariantProps<typeof buttonVariants> {
     buttonType?: 'button' | 'submit' | 'reset'
     isDisabled?: boolean
+    isLoading?: boolean
 }
 
 const buttonVariants = cva(
@@ -46,6 +48,7 @@ export default function Button({
     className,
     buttonType,
     isDisabled,
+    isLoading,
     ...props
 }: IButtonProps) {
     return (
@@ -64,6 +67,9 @@ export default function Button({
             disabled={isDisabled}
             {...props}
         >
+            {isLoading && (
+                <Spinner className="mr-1" size="sm" color="default" />
+            )}
             {children}
         </button>
     )

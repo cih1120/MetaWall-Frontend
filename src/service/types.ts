@@ -11,7 +11,7 @@ export interface IApiGet {
 }
 
 export interface IApiPost extends IApiGet {
-  body: IApiQueries
+  body: IApiQueries | FormData
 }
 
 export interface IApiResult<T> {
@@ -21,6 +21,11 @@ export interface IApiResult<T> {
   statusCode?: number,
 }
 
+export interface IUploadRes {
+  fileUrl: string
+}
+
+
 /* posts */
 export interface IPostReq extends IApiQueries {
   timeSort: TIME_SORT,
@@ -29,7 +34,8 @@ export interface IPostReq extends IApiQueries {
 
 export interface INewPostReq extends IApiQueries {
   title: string,
-  content: string
+  content: string,
+  photo?: string,
 }
 
 /* auth */

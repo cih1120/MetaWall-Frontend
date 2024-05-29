@@ -62,9 +62,9 @@ const PostPhoto = ({ src }: { src: IPost['photo'] }) => {
         <Image
             src={src!}
             width={500}
-            height={157}
+            height={500}
             alt=""
-            className="mb-4 max-h-[157px] w-full rounded-lg border-2 border-gray-dark object-cover"
+            className="mb-4 max-h-[300px] w-full rounded-lg border-2 border-gray-dark object-cover"
         />
     )
 }

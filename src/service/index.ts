@@ -29,7 +29,6 @@ export class ApiError extends Error {
   }
 }
 
-
 const api = {
   get: async ({ baseUrl: newBaeUrl, url, queries, token, tags }: IApiGet) => {
     try {
@@ -55,7 +54,17 @@ const api = {
       if (queries) {
         reqUrl += `?${Object.keys(queries).map(k => `${k}=${queries[k]}`).join("&")}`
       }
-      const config = token ? authConfig(token) : defaultConfig
+
+      let config = token ? authConfig(token) : defaultConfig;
+      if (body instanceof FormData) {
+        config = {
+          ...config,
+          headers: {
+            ...config.headers,
+            'Content-Type': 'multipart/form-data',
+          },
+        };
+      }
       const res = await axios.post(reqUrl, body, config);
       return res.data;
     } catch (error) {

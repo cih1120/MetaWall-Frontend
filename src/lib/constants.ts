@@ -9,5 +9,6 @@ export const AUTH_URL = {
 export const POSTS_URL = {
   POSTS: '/posts',
   UPDATE_POST_PHOTO: '/posts/photo',
+  UPLOAD_PHOTO: '/posts/photo',
   COMMENT: (postId: string) => `/posts/${postId}/comment`
 }
