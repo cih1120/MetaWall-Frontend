@@ -5,6 +5,7 @@ import SearchBar from '@/components/Posts/SearchBar'
 import Post from '@/components/Posts/Post'
 import { IPost, TIME_SORT } from '@/types'
 import { getPosts } from '@/service/posts.service'
+import { getSessionUser } from '@/lib/utils'
 
 export default function Posts({ posts }: { posts: IPost[] }) {
     const data: { value: TIME_SORT; label: string }[] = [
@@ -15,11 +16,12 @@ export default function Posts({ posts }: { posts: IPost[] }) {
     const [filterPost, setFilterPost] = useState<IPost[]>([])
     const [query, setQuery] = useState('')
     const [isLoading, setIsLoading] = useState(true)
+    const user = getSessionUser()
 
     const getFilterPost = () => {
         setIsLoading(true)
         const currentQuery = query
-        getPosts({ timeSort, q: currentQuery }).then((res) => {
+        getPosts(user!.token, { timeSort, q: currentQuery }).then((res) => {
             setIsLoading(false)
             setFilterPost(res)
         })

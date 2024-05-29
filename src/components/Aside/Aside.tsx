@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { HandThumbUpIcon, BellIcon } from '@heroicons/react/24/solid'
 import { addPostModalStore } from '@/store/modal/modalStore'
 import MainButton from '../Form/FormComponents/MainButton'
-import { useUserStore } from '@/store/user/userStore'
 
 type asideListType = { type: string; value: string; icon: string }
 export default function Aside() {
