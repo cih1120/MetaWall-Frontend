@@ -187,6 +187,11 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@midudev/tailwind-animations@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.npmjs.org/@midudev/tailwind-animations/-/tailwind-animations-0.0.7.tgz"
+  integrity sha512-K897X4NvM3tV2/R7aCjl6gJ6msWSTqQtcAwb5VX5D5+m/Mo650mEFoeODwqzaePYNro5BTGyXXFQw/kiHBZlUA==
+
 "@next/env@14.2.2":
   version "14.2.2"
   resolved "https://registry.npmjs.org/@next/env/-/env-14.2.2.tgz"
@@ -4469,7 +4474,7 @@ tailwind-variants@^0.1.18, tailwind-variants@>=0.1.13:
   dependencies:
     tailwind-merge "^1.14.0"
 
-tailwindcss@*, tailwindcss@^3.3.0:
+tailwindcss@*, tailwindcss@^3.0.0, tailwindcss@^3.3.0:
   version "3.4.3"
   resolved "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.3.tgz"
   integrity sha512-U7sxQk/n397Bmx4JHbJx/iSOOv5G+II3f1kpLpY2QeUv5DcPdcTsYLlusZfq1NthHS1c1cZoyFmmkex1rzke0A==

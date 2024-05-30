@@ -1,20 +1,74 @@
+import { useEffect, useMemo, useState } from 'react'
 import { HandThumbUpIcon } from '@heroicons/react/24/outline'
-import { IPost } from "@/types"
+import { HandThumbUpIcon as HandThumbUpSolidIcon } from '@heroicons/react/24/solid'
+import { IPost } from '@/types'
+import { postLike, postUnLike } from '@/service/user.service'
+import { getSessionUser } from '@/lib/utils'
+import { useUserStore } from '@/store/user/userStore'
 
-export default function PostLikes ({ likes }: { likes: IPost['likes'] }) {
-  return (
-      <div className="flex gap-2">
-          {likes === 0 ? (
-              <>
-                  <HandThumbUpIcon className="size-6 text-primary" />
-                  <p className="text-sm">{likes}</p>
-              </>
-          ) : (
-              <>
-                  <HandThumbUpIcon className="size-6 text-gray" />
-                  <p className="text-gray">成為第一個按讚的朋友</p>
-              </>
-          )}
-      </div>
-  )
+export default function PostLikes({
+    likes,
+    postId,
+}: {
+    likes: IPost['likes']
+    postId: IPost['_id']
+}) {
+    const user = getSessionUser()
+    const { id: userId } = useUserStore()
+    const [postLikes, setPostLikes] = useState(0)
+    const [hasUserWithId, setHasUserWithId] = useState(false)
+    const [isShaking, setIsShaking] = useState(false)
+
+    useEffect(() => {
+        setPostLikes(likes.length)
+        setHasUserWithId(() => likes.some((like) => like.user === userId))
+    }, [likes, userId])
+
+    const handleButtonClick = async (event: React.MouseEvent) => {
+        if (hasUserWithId) {
+            await handlePostUnLike()
+        } else {
+            await handlePostLike()
+        }
+    }
+
+    const handlePostLike = async () => {
+        console.log('handlePostLike')
+        await postLike(postId, user!.token)
+        setPostLikes((pre) => (pre += 1))
+        setHasUserWithId(true)
+        setIsShaking(true)
+    }
+
+    const handlePostUnLike = async () => {
+        await postUnLike(postId, user!.token)
+        setPostLikes((pre) => (pre -= 1))
+        setHasUserWithId(false)
+        setIsShaking(true)
+    }
+
+    const Icon = useMemo(() => {
+        return hasUserWithId ? (
+            <HandThumbUpSolidIcon
+                className={`size-6 text-primary ${isShaking ? 'animate-tada' : ''}`}
+            />
+        ) : (
+            <HandThumbUpIcon className={`size-6 text-gray`} />
+        )
+    }, [hasUserWithId, isShaking])
+    return (
+        <div className="flex cursor-pointer gap-2 text-sm">
+            <button
+                onClick={handleButtonClick}
+                className="flex items-center gap-1 "
+            >
+                {Icon}
+                {postLikes === 0 ? (
+                    <span>成為第一個按讚的朋友</span>
+                ) : (
+                    <span>{postLikes}</span>
+                )}
+            </button>
+        </div>
+    )
 }

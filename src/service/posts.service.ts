@@ -15,6 +15,18 @@ export const getPosts = (token: TokenType, queries?: IPostReq) => {
         })
 }
 
+export const getPostById = (token: TokenType, id: IPost["_id"]) => {
+    return api
+        .get({ token, url: `${POSTS_URL.POSTS}/${id}` })
+        .then((res: IApiResult<IPost>) => {
+            if (res?.status === 'success' && res?.data) {
+                return res.data
+            } else {
+                return []
+            }
+        })
+}
+
 export const addPost = (data: INewPostReq, token: TokenType) => {
     return api
         .post({ url: POSTS_URL.POSTS, body: data, token })

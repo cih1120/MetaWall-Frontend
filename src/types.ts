@@ -26,7 +26,7 @@ export interface IPost {
   title: string,
   content: string,
   createdAt: Date,
-  likes: number,
+  likes: { user: "string" }[],
   photo?: string,
   comments?: IComment[],
 }

@@ -73,6 +73,18 @@ const api = {
       throw new ApiError('Error retrieving data:', statusCode);
     }
   },
+  delete: async ({ baseUrl: newBaeUrl, url, token }: IApiPost) => {
+    try {
+      let reqUrl = `${newBaeUrl || baseUrl}${url}`;
+      const config = token ? authConfig(token) : defaultConfig;
+      const res = await axios.delete(reqUrl, config);
+      return res.data;
+    } catch (error) {
+      console.error('Error retrieving data:', error);
+      const statusCode = (error as AxiosError)?.response?.status || 500;
+      throw new ApiError('Error retrieving data:', statusCode);
+    }
+  },
 }
 
 

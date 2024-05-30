@@ -11,10 +11,10 @@ export interface IApiGet {
 }
 
 export interface IApiPost extends IApiGet {
-  body: IApiQueries | FormData
+  body?: IApiQueries | FormData
 }
 
-export interface IApiResult<T> {
+export interface IApiResult<T = undefined> {
   status: string,
   data?: T,
   message?: string,

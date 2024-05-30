@@ -23,7 +23,7 @@ export default function Post({ data }: { data?: IPost }) {
                         </div>
                         {data.photo && <PostPhoto src={data.photo} />}
                     </div>
-                    <PostLikes likes={data.likes} />
+                    <PostLikes postId={data._id} likes={data.likes} />
                     <PostCommentInput />
                     <CommentList comments={data.comments} />
                 </>
