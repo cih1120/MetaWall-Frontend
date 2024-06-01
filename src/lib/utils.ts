@@ -12,3 +12,12 @@ export const getSessionUser = () => {
   const { data: session } = useSession()
   return session?.user || null
 }
+
+export const debounce = (func: Function, wait: number = 50) => {
+  let timeout: number;
+
+  return () => {
+    clearTimeout(timeout)
+    timeout = setTimeout(func, wait)
+  }
+}
