@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
 import { Skeleton } from '@nextui-org/react'
 import { IComment, IPost } from '@/types'
@@ -21,10 +20,10 @@ export default function Post({ data }: { data?: IPost }) {
         }
     }, [])
     return (
-        <li className="block rounded-lg border-2 border-gray-dark bg-white p-6 shadow-[0_2px_0_#000400]">
+        <li className="block rounded-lg border-2 border-gray-dark bg-white p-4 shadow-[0_2px_0_#000400] md:p-6">
             {data ? (
                 <>
-                    <div className="flex flex-col gap-4 py-4">
+                    <div className="flex flex-col gap-4 py-2 md:py-4">
                         <PostHeader
                             user={data.user}
                             createdAt={data.createdAt}
@@ -46,7 +45,7 @@ export default function Post({ data }: { data?: IPost }) {
                     />
                 </>
             ) : (
-                <div className="flex flex-col gap-4 py-4">
+                <div className="flex flex-col gap-4 py-2 md:py-4">
                     <div className="flex gap-2">
                         <Skeleton className="flex h-10 w-10 rounded-full" />
                         <div className="flex w-4/12 flex-col gap-2">

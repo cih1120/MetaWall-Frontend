@@ -77,6 +77,7 @@ export default function AddPostModal() {
             isOpen={isOpen}
             onClose={onClose}
             onOpenChange={onOpenChange}
+            placement="center"
             radius="sm"
             size="lg"
             classNames={{ base: 'border-2 border-gray-dark' }}

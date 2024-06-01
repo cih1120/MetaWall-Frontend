@@ -14,7 +14,7 @@ export default function SearchBar({
     searchEvent: () => void
 }) {
     return (
-        <div className="flex h-fit w-full border-2 border-gray-dark">
+        <div className="flex h-fit w-full  border-2 border-gray-dark">
             <Input
                 isCombine
                 placeholder="搜尋貼文內容"

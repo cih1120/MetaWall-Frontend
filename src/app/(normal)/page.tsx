@@ -1,4 +1,4 @@
-import Aside from '@/components/Aside'
+import FloatingMenu from '@/components/FloatingMenu'
 import Posts from '@/components/Posts'
 import { getServerSessionUser } from '@/lib/action'
 import { getPosts } from '@/service/posts.service'
@@ -12,13 +12,11 @@ export default async function IndexPage() {
     }
 
     return (
-        <section className="flex w-full gap-6">
-            <div className="shrink-0 basis-8/12">
+        <section className="flex w-full justify-center gap-6 md:justify-start">
+            <div className="w-full shrink-0 grow basis-auto px-6 md:grow-0 md:basis-8/12 md:px-0">
                 <Posts posts={posts} />
             </div>
-            <div className="w-full shrink grow">
-                <Aside />
-            </div>
+                <FloatingMenu />
         </section>
     )
 }

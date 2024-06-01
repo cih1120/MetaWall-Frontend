@@ -37,7 +37,7 @@ export default function Posts({ posts }: { posts: IPost[] }) {
 
     return (
         <>
-            <div className="flex gap-3">
+            <div className="w-fll flex flex-col gap-3 md:flex-row">
                 <Select values={timeSort} data={data} setValue={setTimeSort} />
                 <SearchBar
                     value={query}
@@ -45,7 +45,7 @@ export default function Posts({ posts }: { posts: IPost[] }) {
                     searchEvent={getFilterPost}
                 />
             </div>
-            <ul className="flex flex-col gap-4 p-4">
+            <ul className="flex flex-col gap-4 py-4 md:px-4">
                 {isLoading ? (
                     <Post />
                 ) : (

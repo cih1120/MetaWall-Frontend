@@ -36,7 +36,12 @@ export default function PostCommentInput({
 
     return (
         <div className="mt-3 flex items-center gap-2">
-            <Avatar isBordered={false} src={avatar} name={name} />
+            <Avatar
+                className="hidden md:block"
+                isBordered={false}
+                src={avatar}
+                name={name}
+            />
             <div className="flex h-fit w-full border-2 border-gray-dark">
                 <Input
                     type="text"

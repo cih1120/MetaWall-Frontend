@@ -1,8 +1,8 @@
 'use client'
+import Link from 'next/link'
+import { signOut } from 'next-auth/react'
 import Avatar from '@/components/Avatar'
 import { useUserStore } from '@/store/user/userStore'
-import { signOut } from 'next-auth/react'
-import Link from 'next/link'
 
 export default function DropMenu() {
     const { name, avatar } = useUserStore()
@@ -12,8 +12,8 @@ export default function DropMenu() {
             <h5 className="border-0 border-b-4 border-gray-dark font-paytoneOne">
                 {name}
             </h5>
-            <div className="back-rectangle absolute left-0 top-full">
-                <ul className="hidden w-max border-2 border-gray-dark bg-white group-hover:block">
+            <div className="absolute left-0 top-full z-50">
+                <ul className="back-rectangle hidden w-max border-2 border-gray-dark bg-white group-hover:block">
                     <li className="border-b-1 border-gray-dark">
                         <Link
                             href="/"

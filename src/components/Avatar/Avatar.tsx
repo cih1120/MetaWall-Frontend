@@ -5,15 +5,18 @@ import defaultImg from './user_default.jpg'
 export default function Avatar({
     src,
     name,
+    className,
     isBordered = true,
 }: {
-    isBordered?: boolean
     src: string | undefined
     name: string
+    className?: string,
+    isBordered?: boolean
 }) {
     return (
         <NextUiAvatar
             isBordered={isBordered}
+            className={className}
             classNames={{ fallback: 'h-full w-full' }}
             fallback={
                 <Image

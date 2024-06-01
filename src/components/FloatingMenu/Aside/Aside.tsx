@@ -1,9 +1,8 @@
 'use client'
 import { useMemo } from 'react'
-import Image from 'next/image'
 import { HandThumbUpIcon, BellIcon } from '@heroicons/react/24/solid'
 import { addPostModalStore } from '@/store/modal/modalStore'
-import MainButton from '../Form/FormComponents/MainButton'
+import MainButton from '../../Form/FormComponents/MainButton'
 
 type asideListType = { type: string; value: string; icon: string }
 export default function Aside() {
@@ -14,7 +13,7 @@ export default function Aside() {
     ]
 
     return (
-        <aside className="w-full border-2 border-gray-dark bg-white px-6 py-9">
+        <aside className="sticky top-24 h-fit w-full border-2 border-gray-dark bg-white px-6 py-9">
             <MainButton background="accent" solid="strong" onClick={onOpen}>
                 張貼動態
             </MainButton>
