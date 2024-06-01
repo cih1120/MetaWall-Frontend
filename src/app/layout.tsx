@@ -30,10 +30,6 @@ export default async function RootLayout({
     children: React.ReactNode
 }>) {
     const session = await getServerSession(authOptions)
-    let user
-    if (session) {
-        user = await getUserProfile(session.user.token)
-    }
     return (
         <html lang="en">
             <body
@@ -41,7 +37,7 @@ export default async function RootLayout({
                 className={`${notoSans.className} ${azeretMono.variable} ${paytoneOne.variable}`}
             >
                 <SessionProvider session={session}>
-                    <Provider user={user}>{children}</Provider>
+                    <Provider>{children}</Provider>
                 </SessionProvider>
             </body>
         </html>

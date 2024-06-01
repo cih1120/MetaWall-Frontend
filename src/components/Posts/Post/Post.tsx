@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Skeleton } from '@nextui-org/react'
@@ -8,6 +9,17 @@ import PostLikes from './PostLikes'
 import PostCommentInput from './PostCommentInput'
 
 export default function Post({ data }: { data?: IPost }) {
+    const [comments, setComments] = useState<IComment[]>([])
+    const updatePostInfo = (updatePost: IPost) => {
+        if (updatePost.comments) {
+            setComments(updatePost.comments)
+        }
+    }
+    useEffect(() => {
+        if (data?.comments) {
+            setComments(data.comments)
+        }
+    }, [])
     return (
         <li className="block rounded-lg border-2 border-gray-dark bg-white p-6 shadow-[0_2px_0_#000400]">
             {data ? (
@@ -24,8 +36,14 @@ export default function Post({ data }: { data?: IPost }) {
                         {data.photo && <PostPhoto src={data.photo} />}
                     </div>
                     <PostLikes postId={data._id} likes={data.likes} />
-                    <PostCommentInput />
-                    <CommentList comments={data.comments} />
+                    <PostCommentInput
+                        updatePostInfo={updatePostInfo}
+                        postId={data._id}
+                    />
+                    <CommentList
+                        updatePostInfo={updatePostInfo}
+                        comments={comments}
+                    />
                 </>
             ) : (
                 <div className="flex flex-col gap-4 py-4">
@@ -45,14 +63,26 @@ export default function Post({ data }: { data?: IPost }) {
     )
 }
 
-const CommentList = ({ comments }: { comments: IComment[] | undefined }) => {
+const CommentList = ({
+    comments,
+    updatePostInfo,
+}: {
+    comments: IComment[] | undefined
+    updatePostInfo: (updatePost: IPost) => void
+}) => {
     return (
         <ul className="mt-2 flex w-full flex-col gap-4">
             {comments &&
                 comments?.length > 0 &&
-                comments.map((comment) => (
-                    <PostComment key={comment._id} comment={comment} />
-                ))}
+                [...comments]
+                    .reverse()
+                    .map((comment) => (
+                        <PostComment
+                            key={comment._id}
+                            updatePostInfo={updatePostInfo}
+                            comment={comment}
+                        />
+                    ))}
         </ul>
     )
 }

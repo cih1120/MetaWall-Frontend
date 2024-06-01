@@ -1,5 +1,5 @@
 import { TIME_SORT, Gender, IUserProfile } from '@/types'
-/* basic */
+/* Basic Api基本結構 */
 export type IApiQueries = {
   [key: string]: string | number | undefined
 }
@@ -26,7 +26,7 @@ export interface IUploadRes {
 }
 
 
-/* posts */
+/* Post 動態貼文 */
 export interface IPostReq extends IApiQueries {
   timeSort: TIME_SORT,
   q?: string
@@ -38,7 +38,12 @@ export interface INewPostReq extends IApiQueries {
   photo?: string,
 }
 
-/* auth */
+export interface ICommentReq extends IApiQueries {
+  id: string,
+  comment: string,
+}
+
+/* Auth 會員功能 */
 export interface ISignUpReq extends IApiQueries {
   email: string,
   name: string,

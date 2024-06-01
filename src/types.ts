@@ -16,7 +16,7 @@ export interface IUserProfile extends Omit<IUser, '_id'> {
 export interface IComment {
   user: IUser,
   _id: string,
-  content: string,
+  comment: string,
   createdAt: Date,
 }
 

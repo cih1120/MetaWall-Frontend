@@ -1,22 +1,27 @@
 'use client'
+import { useEffect } from 'react'
 import { NextUIProvider } from '@nextui-org/react'
 import { Toaster } from 'react-hot-toast'
-import { IUserProfile } from '@/types'
 import { useUserStore } from '@/store/user/userStore'
-import { useEffect } from 'react'
+import { getSessionUser } from '@/lib/utils'
+import { getUserProfile } from '@/service/auth.service'
 
 export default function Provider({
-    user,
     children,
 }: Readonly<{
-    user: IUserProfile | undefined
     children: React.ReactNode
 }>) {
     const { init } = useUserStore()
+    const user = getSessionUser()
     useEffect(() => {
-        if (user) {
-            init(user)
+        const fetchAndInitUser = async () => {
+            if (user) {
+                const userProfile = await getUserProfile(user.token)
+                init(userProfile)
+            }
         }
+
+        fetchAndInitUser()
     }, [user])
     return (
         <NextUIProvider>

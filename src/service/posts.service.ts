@@ -1,8 +1,9 @@
+import api, { ApiError } from '.'
 import { IPost } from '@/types'
 import { POSTS_URL } from '@/lib/constants'
-import api, { ApiError } from '.'
-import { IApiResult, IPostReq, INewPostReq, TokenType, IUploadRes } from './types'
+import { IApiResult, IPostReq, INewPostReq, TokenType, IUploadRes, ICommentReq } from './types'
 
+/* 取得所有貼文 */
 export const getPosts = (token: TokenType, queries?: IPostReq) => {
     return api
         .get({ token, url: POSTS_URL.POSTS, queries, tags: ["post"] })
@@ -15,6 +16,7 @@ export const getPosts = (token: TokenType, queries?: IPostReq) => {
         })
 }
 
+/* 取得特定貼文 */
 export const getPostById = (token: TokenType, id: IPost["_id"]) => {
     return api
         .get({ token, url: `${POSTS_URL.POSTS}/${id}` })
@@ -27,6 +29,7 @@ export const getPostById = (token: TokenType, id: IPost["_id"]) => {
         })
 }
 
+/* 新增貼文 */
 export const addPost = (data: INewPostReq, token: TokenType) => {
     return api
         .post({ url: POSTS_URL.POSTS, body: data, token })
@@ -39,6 +42,33 @@ export const addPost = (data: INewPostReq, token: TokenType) => {
         })
 }
 
+/* 新增留言 */
+export const addComment = (data: ICommentReq, token: TokenType) => {
+    return api
+        .post({ url: POSTS_URL.COMMENT(data.id), body: data, token })
+        .then((res: IApiResult<IPost>) => {
+            if (res?.status === 'success' && res.data) {
+                return res.data
+            } else {
+                throw new ApiError('Unexpected response format', 500);
+            }
+        })
+}
+
+/* 移除留言 */
+export const deleteComment = (id: ICommentReq["id"], token: TokenType) => {
+    return api
+        .delete({ url: POSTS_URL.COMMENT(id), token })
+        .then((res: IApiResult<IPost>) => {
+            if (res?.status === 'success' && res.data) {
+                return res.data
+            } else {
+                throw new ApiError('Unexpected response format', 500);
+            }
+        })
+}
+
+/* 上傳圖片 */
 export const uploadPhoto = (formData: FormData, token: TokenType) => {
     return api
         .post({ url: POSTS_URL.UPLOAD_PHOTO, body: formData, token })
