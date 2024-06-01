@@ -3,13 +3,25 @@ import { useMemo } from 'react'
 import { HandThumbUpIcon, BellIcon } from '@heroicons/react/24/solid'
 import { addPostModalStore } from '@/store/modal/modalStore'
 import MainButton from '../../Form/FormComponents/MainButton'
+import { MenuType } from '../FloatingMenu'
+import Link from 'next/link'
 
-type asideListType = { type: string; value: string; icon: string }
+// type asideListType = { type: string; value: string; icon: string }
 export default function Aside() {
     const { onOpen } = addPostModalStore()
-    const asideList: asideListType[] = [
-        { type: 'follow', value: '追蹤名單', icon: 'Bell' },
-        { type: 'like', value: '我按讚的文章', icon: 'ThumbsUp' },
+    const asideMenu: MenuType[] = [
+        {
+            type: 'link',
+            value: '追蹤名單',
+            icon: <BellIcon className="size-6 text-primary-light" />,
+            url: '/',
+        },
+        {
+            type: 'link',
+            value: '我按讚的文章',
+            icon: <HandThumbUpIcon className="size-6 text-primary-light" />,
+            url: '/',
+        },
     ]
 
     return (
@@ -18,28 +30,30 @@ export default function Aside() {
                 張貼動態
             </MainButton>
             <ul className="mt-6 flex flex-col justify-center gap-5">
-                {asideList.map((item) => {
-                    return <AsideList key={item.type} listItem={item} />
+                {asideMenu.map((item) => {
+                    return <AsideList key={item.value} listItem={item} />
                 })}
             </ul>
         </aside>
     )
 }
 
-const AsideList = function ({ listItem }: { listItem: asideListType }) {
-    const Icon = useMemo(() => {
-        if (listItem.icon == 'Bell') {
-            return <BellIcon className="size-6 text-primary-light" />
-        } else {
-            return <HandThumbUpIcon className="size-6 text-primary-light" />
-        }
-    }, [listItem])
+const AsideList = function ({ listItem }: { listItem: MenuType }) {
     return (
-        <li className="flex items-center gap-4">
-            <MainButton background="normal" shape="round" className="h-12 w-12">
-                {Icon}
-            </MainButton>
-            <p className=" text-medium">{listItem.value}</p>
+        <li>
+            <Link
+                className="flex items-center gap-4"
+                href={listItem.type === 'link' ? listItem.url : '/'}
+            >
+                <MainButton
+                    background="normal"
+                    shape="round"
+                    className="h-12 w-12"
+                >
+                    {listItem.icon}
+                </MainButton>
+                <p className=" text-medium">{listItem.value}</p>
+            </Link>
         </li>
     )
 }
