@@ -1,13 +1,19 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Select from '@/components/Form/FormComponents/Select'
 import SearchBar from '@/components/Posts/SearchBar'
 import Post from '@/components/Posts/Post'
-import { IPost, TIME_SORT } from '@/types'
-import { getPosts } from '@/service/posts.service'
+import { IPost, IUser, TIME_SORT } from '@/types'
+import { getPosts, getPostByUser } from '@/service/posts.service'
 import { getSessionUser } from '@/lib/utils'
 
-export default function Posts({ posts }: { posts: IPost[] }) {
+export default function Posts({
+    posts,
+    userId,
+}: {
+    posts: IPost[]
+    userId?: IUser['_id']
+}) {
     const data: { value: TIME_SORT; label: string }[] = [
         { value: TIME_SORT.DESC, label: '最新' },
         { value: TIME_SORT.ASC, label: '最舊' },
@@ -16,19 +22,29 @@ export default function Posts({ posts }: { posts: IPost[] }) {
     const [filterPost, setFilterPost] = useState<IPost[]>([])
     const [query, setQuery] = useState('')
     const [isLoading, setIsLoading] = useState(true)
-    const user = getSessionUser()
+    const currentUser = getSessionUser()
 
-    const getFilterPost = () => {
+    const refreshPosts = async () => {
         setIsLoading(true)
-        const currentQuery = query
-        getPosts(user!.token, { timeSort, q: currentQuery }).then((res) => {
-            setIsLoading(false)
-            setFilterPost(res)
-        })
+        const res = await getPostsApi()
+        setIsLoading(false)
+        setFilterPost(res)
     }
 
+    const getPostsApi = useCallback(() => {
+        const currentQuery = query
+        if (userId) {
+            return getPostByUser(currentUser!.token, userId, {
+                timeSort,
+                q: currentQuery,
+            })
+        } else {
+            return getPosts(currentUser!.token, { timeSort, q: currentQuery })
+        }
+    }, [userId, query, timeSort])
+
     useEffect(() => {
-        getFilterPost()
+        refreshPosts()
     }, [timeSort])
 
     useEffect(() => {
@@ -42,7 +58,7 @@ export default function Posts({ posts }: { posts: IPost[] }) {
                 <SearchBar
                     value={query}
                     setValue={setQuery}
-                    searchEvent={getFilterPost}
+                    searchEvent={refreshPosts}
                 />
             </div>
             <ul className="flex flex-col gap-4 py-4 md:px-4">

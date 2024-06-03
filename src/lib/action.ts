@@ -17,6 +17,11 @@ export async function revalidateIndexPost() {
   revalidatePath('/', 'page')
 }
 
+export async function revalidateUserPage() {
+  revalidateTag('user')
+  revalidatePath("/[:id]", 'page')
+}
+
 export async function getServerSessionUser() {
   const res = await getServerSession(authOptions)
   return res?.user || null

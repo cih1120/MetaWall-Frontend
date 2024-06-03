@@ -1,5 +1,5 @@
 import api, { ApiError } from '.'
-import { IPost } from '@/types'
+import { IPost, IUser } from '@/types'
 import { POSTS_URL } from '@/lib/constants'
 import { IApiResult, IPostReq, INewPostReq, TokenType, IUploadRes, ICommentReq } from './types'
 
@@ -20,7 +20,20 @@ export const getPosts = (token: TokenType, queries?: IPostReq) => {
 export const getPostById = (token: TokenType, id: IPost["_id"]) => {
     return api
         .get({ token, url: `${POSTS_URL.POSTS}/${id}` })
-        .then((res: IApiResult<IPost>) => {
+        .then((res: IApiResult<IPost[]>) => {
+            if (res?.status === 'success' && res?.data) {
+                return res.data
+            } else {
+                return []
+            }
+        })
+}
+
+/* 取得特定用戶貼文 */
+export const getPostByUser = (token: TokenType, id: IUser["_id"], queries?: IPostReq) => {
+    return api
+        .get({ token, url: POSTS_URL.USER_POSTS(id), queries })
+        .then((res: IApiResult<IPost[]>) => {
             if (res?.status === 'success' && res?.data) {
                 return res.data
             } else {

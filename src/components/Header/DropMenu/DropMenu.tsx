@@ -3,9 +3,10 @@ import Link from 'next/link'
 import { signOut } from 'next-auth/react'
 import Avatar from '@/components/Avatar'
 import { useUserStore } from '@/store/user/userStore'
+import { getSessionUser } from '@/lib/utils'
 
 export default function DropMenu() {
-    const { name, avatar } = useUserStore()
+    const { id, name, avatar } = useUserStore()
     return (
         <button className="group relative flex gap-2">
             <Avatar src={avatar} name={name} />
@@ -16,7 +17,7 @@ export default function DropMenu() {
                 <ul className="back-rectangle hidden w-max border-2 border-gray-dark bg-white group-hover:block">
                     <li className="border-b-1 border-gray-dark">
                         <Link
-                            href="/"
+                            href={`/${id}`}
                             className="block px-4 py-2 hover:bg-block"
                         >
                             我的貼文牆

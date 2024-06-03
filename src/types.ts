@@ -9,8 +9,13 @@ export interface IUserProfile extends Omit<IUser, '_id'> {
   gender?: Gender,
   email: string,
   createdAt: Date | null,
-  followers: IUser[],
-  following: IUser[]
+  followers: IFollow[],
+  following: IFollow[]
+}
+
+export interface IFollow {
+  user: IUser,
+  createdAt: Date
 }
 
 export interface IComment {

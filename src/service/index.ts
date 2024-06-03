@@ -38,7 +38,7 @@ const api = {
       }
       const config = {
         ...token ? authConfig(token) : defaultConfig,
-        next: tags ? { tags: tags } : undefined
+        next: tags ? { tags: tags } : undefined,
       };
       const res = await axios.get(reqUrl, config);
       return res.data;

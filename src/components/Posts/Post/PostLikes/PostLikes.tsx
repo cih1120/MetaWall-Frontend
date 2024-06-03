@@ -33,7 +33,6 @@ export default function PostLikes({
     }
 
     const handlePostLike = async () => {
-        console.log('handlePostLike')
         await postLike(postId, user!.token)
         setPostLikes((pre) => (pre += 1))
         setHasUserWithId(true)

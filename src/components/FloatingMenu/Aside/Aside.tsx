@@ -1,14 +1,15 @@
 'use client'
-import { useMemo } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { HandThumbUpIcon, BellIcon } from '@heroicons/react/24/solid'
 import { addPostModalStore } from '@/store/modal/modalStore'
 import MainButton from '../../Form/FormComponents/MainButton'
 import { MenuType } from '../FloatingMenu'
-import Link from 'next/link'
 
 // type asideListType = { type: string; value: string; icon: string }
 export default function Aside() {
     const { onOpen } = addPostModalStore()
+    const pathname = usePathname()
     const asideMenu: MenuType[] = [
         {
             type: 'link',
@@ -26,10 +27,17 @@ export default function Aside() {
 
     return (
         <aside className="sticky top-24 h-fit w-full border-2 border-gray-dark bg-white px-6 py-9">
-            <MainButton background="accent" solid="strong" onClick={onOpen}>
-                張貼動態
-            </MainButton>
-            <ul className="mt-6 flex flex-col justify-center gap-5">
+            {pathname === '/' && (
+                <MainButton
+                    background="accent"
+                    className="mb-6"
+                    solid="strong"
+                    onClick={onOpen}
+                >
+                    張貼動態
+                </MainButton>
+            )}
+            <ul className="flex flex-col justify-center gap-5">
                 {asideMenu.map((item) => {
                     return <AsideList key={item.value} listItem={item} />
                 })}

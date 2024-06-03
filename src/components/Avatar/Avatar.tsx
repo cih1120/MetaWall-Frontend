@@ -1,18 +1,22 @@
 import Image from 'next/image'
-import { Avatar as NextUiAvatar } from '@nextui-org/react'
+import {
+    Avatar as NextUiAvatar,
+    AvatarProps as NextUiAvatarProps,
+} from '@nextui-org/react'
 import defaultImg from './user_default.jpg'
+
+interface AvatarProps extends NextUiAvatarProps {
+    src: string | undefined
+    name: string
+}
 
 export default function Avatar({
     src,
     name,
     className,
     isBordered = true,
-}: {
-    src: string | undefined
-    name: string
-    className?: string,
-    isBordered?: boolean
-}) {
+    ...props
+}: AvatarProps) {
     return (
         <NextUiAvatar
             isBordered={isBordered}
@@ -26,6 +30,7 @@ export default function Avatar({
                     src={src || defaultImg}
                 />
             }
+            {...props}
         ></NextUiAvatar>
     )
 }
