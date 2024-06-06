@@ -3,8 +3,7 @@ import { getPostByUser } from '@/service/posts.service'
 import { getServerSessionUser } from '@/lib/action'
 import { IPost, IUserProfile } from '@/types'
 import { getUserProfileById } from '@/service/user.service'
-import UserCard from '@/components/UserCard'
-import { revalidatePath } from 'next/cache'
+import UserCard from '@/components/Posts/UserInfo'
 
 export default async function UserPage({ params }: { params: { id: string } }) {
     const id = params.id

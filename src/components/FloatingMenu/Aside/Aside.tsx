@@ -5,17 +5,18 @@ import { HandThumbUpIcon, BellIcon } from '@heroicons/react/24/solid'
 import { addPostModalStore } from '@/store/modal/modalStore'
 import MainButton from '../../Form/FormComponents/MainButton'
 import { MenuType } from '../FloatingMenu'
+import { useUserStore } from '@/store/user/userStore'
 
-// type asideListType = { type: string; value: string; icon: string }
 export default function Aside() {
     const { onOpen } = addPostModalStore()
     const pathname = usePathname()
+    const id = useUserStore((state) => state.id)
     const asideMenu: MenuType[] = [
         {
             type: 'link',
             value: '追蹤名單',
             icon: <BellIcon className="size-6 text-primary-light" />,
-            url: '/',
+            url: `/following/${id}`,
         },
         {
             type: 'link',

@@ -4,13 +4,17 @@ export interface IUser {
   avatar?: string,
 }
 
-export interface IUserProfile extends Omit<IUser, '_id'> {
+export interface IUserProfile extends IUser {
   id: string,
   gender?: Gender,
   email: string,
   createdAt: Date | null,
   followers: IFollow[],
-  following: IFollow[]
+  following: IFollow[],
+  likes: {
+    _id: string,
+    createdAt: Date
+  }[]
 }
 
 export interface IFollow {

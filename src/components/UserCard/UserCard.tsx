@@ -1,43 +1,42 @@
-'use client'
 import { useMemo } from 'react'
-import { useShallow } from 'zustand/react/shallow'
-import { IUserProfile } from '@/types'
-import { useUserStore } from '@/store/user/userStore'
-import FollowButton from './FollowButton'
+import moment from 'moment'
+import Link from 'next/link'
+import { IFollow } from '@/types'
 import Avatar from '../Avatar'
+export default function UserCard({ userInfo }: { userInfo: IFollow }) {
+    const user = userInfo.user
 
-export default function UserCard({ userInfo }: { userInfo: IUserProfile }) {
-    const loggedInUserId = useUserStore(useShallow((state) => state.id))
+    const formattedDate = useMemo(() => {
+        return moment(userInfo.createdAt).format('YYYY/MM/DD HH:mm')
+    }, [userInfo.createdAt])
 
-    const isCurrentUser = useMemo(() => {
-        return loggedInUserId === userInfo.id
-    }, [loggedInUserId, userInfo.id])
+    const calculateDaysPassed = (createdAt: Date): number => {
+        const createdAtDate = new Date(createdAt)
+        const now = new Date()
+        const timeDifference = now.getTime() - createdAtDate.getTime()
+        return Math.floor(timeDifference / (1000 * 60 * 60 * 24))
+    }
+
+    const daysPassed = useMemo(
+        () => calculateDaysPassed(userInfo.createdAt),
+        [userInfo.createdAt]
+    )
 
     return (
         <div className="back-rectangle relative z-10 mb-3 w-full before:rounded-md">
-            <div className="flex w-full rounded-md border-2 border-gray-dark bg-white">
-                <div className="border-r-2 border-gray-dark">
-                    <Avatar
-                        src={userInfo.avatar}
-                        name={userInfo.name}
-                        size="lg"
-                        className="h-16 w-16 rounded-none"
-                        isBordered={false}
-                    />
-                </div>
+            <div className="flex w-full items-end rounded-md border-2 border-gray-dark bg-white px-4 py-5">
+                <Avatar src={user.avatar} name={user.name} isBordered={false} />
                 <div className="flex flex-1 items-center justify-between px-3">
-                    <div>
-                        <h3 className="font-bold">{userInfo.name}</h3>
-                        <h5>{userInfo.followers.length} 人追蹤</h5>
-                    </div>
-
-                    {!isCurrentUser && (
-                        <FollowButton
-                            userId={userInfo.id}
-                            followers={userInfo.followers}
-                        />
-                    )}
+                    <Link href={`/${user._id}`}>
+                        <div>
+                            <h3 className="font-bold">{user.name}</h3>
+                            <h5 className="text-xs font-extralight text-gray">
+                                追蹤日期： {formattedDate}
+                            </h5>
+                        </div>
+                    </Link>
                 </div>
+                <h4 className="text-sm">您已追蹤 {daysPassed} 天！</h4>
             </div>
         </div>
     )
