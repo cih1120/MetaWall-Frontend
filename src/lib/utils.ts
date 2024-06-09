@@ -21,3 +21,15 @@ export const debounce = (func: Function, wait: number = 50) => {
     timeout = setTimeout(func, wait)
   }
 }
+
+// 將dataURL轉換為File
+export const dataUrlToFileUsingFetch = async (
+  url: string,
+  fileName: string,
+  mimeType: string
+) => {
+  const response = await fetch(url)
+  const buffer = await response.arrayBuffer()
+
+  return new File([buffer], fileName, { type: mimeType })
+}
