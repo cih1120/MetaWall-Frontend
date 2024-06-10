@@ -2,10 +2,9 @@ import type { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { Azeret_Mono, Noto_Sans, Paytone_One } from 'next/font/google'
 import './globals.css'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import Provider from '@/components/Provider'
 import SessionProvider from '@/components/SessionProvider'
-import { getUserProfile } from '@/service/auth.service'
+import authOptions from './api/auth/[...nextauth]/authOptions'
 
 const azeretMono = Azeret_Mono({
     subsets: ['latin'],

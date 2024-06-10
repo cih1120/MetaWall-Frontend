@@ -1,7 +1,5 @@
 import { redirect } from 'next/navigation'
-import { getServerSession } from 'next-auth/next'
 import Image from 'next/image'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import welcome_img from './img.svg'
 import { getServerSessionUser } from '@/lib/action'
 
