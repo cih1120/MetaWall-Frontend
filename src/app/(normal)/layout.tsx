@@ -8,7 +8,7 @@ export default async function Layout({
     return (
         <section className="pt-20">
             <Header />
-            <main className="mx-auto max-w-4xl py-2 md:py-10">
+            <main className="mx-auto max-w-4xl py-2 pb-20 md:py-10">
                 <section className="flex w-full justify-center gap-6 md:justify-start">
                     <div className="w-full shrink-0 grow basis-auto px-4 md:grow-0 md:basis-8/12 md:px-0">
                         {children}

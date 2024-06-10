@@ -20,7 +20,7 @@ export default function Post({ data }: { data?: IPost }) {
         }
     }, [])
     return (
-        <li className="block rounded-lg border-2 border-gray-dark bg-white p-4 shadow-[0_2px_0_#000400] md:p-6">
+        <li className="card block">
             {data ? (
                 <>
                     <div className="flex flex-col gap-4 py-2 md:py-4">

@@ -69,4 +69,8 @@ body:after {
         right: -4px;
         bottom: -4px;
     }
+
+    .card {
+        @apply rounded-lg border-2 border-gray-dark bg-white p-4 shadow-[0_2px_0_#000400] md:p-6;
+    }
 }
