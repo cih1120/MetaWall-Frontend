@@ -28,4 +28,5 @@ const CustomRadioGroup = forwardRef<HTMLInputElement, ICustomRadioGroupProps>(
     }
 )
 
+CustomRadioGroup.displayName = 'CustomRadioGroup'
 export default CustomRadioGroup

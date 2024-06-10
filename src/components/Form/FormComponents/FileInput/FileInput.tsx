@@ -166,4 +166,5 @@ const FileInput = forwardRef<HTMLInputElement, IFileInputProps>(
     }
 )
 
+FileInput.displayName = 'FileInput'
 export default FileInput

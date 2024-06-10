@@ -8,7 +8,7 @@ interface ITextAreaProps {
 }
 
 const TextArea = forwardRef<HTMLInputElement, ITextAreaProps>(
-    ({ value, setValue,placeholder, ...props }, ref) => {
+    ({ value, setValue, placeholder, ...props }, ref) => {
         return (
             <Textarea
                 labelPlacement="outside"
@@ -24,4 +24,5 @@ const TextArea = forwardRef<HTMLInputElement, ITextAreaProps>(
     }
 )
 
+TextArea.displayName = 'TextArea'
 export default TextArea

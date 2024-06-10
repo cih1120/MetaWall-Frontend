@@ -27,4 +27,6 @@ const CustomInput = forwardRef<HTMLInputElement, ICustomInputProps>(
         )
     }
 )
+
+CustomInput.displayName = 'CustomInput'
 export default CustomInput
