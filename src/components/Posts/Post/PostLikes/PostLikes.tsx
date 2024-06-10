@@ -3,7 +3,7 @@ import { HandThumbUpIcon } from '@heroicons/react/24/outline'
 import { HandThumbUpIcon as HandThumbUpSolidIcon } from '@heroicons/react/24/solid'
 import { IPost } from '@/types'
 import { postLike, postUnLike } from '@/service/user.service'
-import { getSessionUser } from '@/lib/utils'
+import { useSessionUser } from '@/lib/utils'
 import { useUserStore } from '@/store/user/userStore'
 
 export default function PostLikes({
@@ -13,7 +13,7 @@ export default function PostLikes({
     likes: IPost['likes']
     postId: IPost['_id']
 }) {
-    const user = getSessionUser()
+    const user = useSessionUser()
     const { id: userId } = useUserStore()
     const [postLikes, setPostLikes] = useState(0)
     const [hasUserWithId, setHasUserWithId] = useState(false)

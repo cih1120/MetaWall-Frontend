@@ -6,7 +6,7 @@ import { useUserStore } from '@/store/user/userStore'
 import { Gender } from '@/types'
 import { IUserProfileReq } from '@/service/types'
 import { editUserProfile } from '@/service/auth.service'
-import { getSessionUser } from '@/lib/utils'
+import { useSessionUser } from '@/lib/utils'
 import Avatar from '@/components/Avatar'
 import MainButton from '@/components/Form/FormComponents/MainButton'
 import UploadAvatarModal from '@/components/Modals/UploadAvatar'
@@ -17,7 +17,7 @@ export default function EditName() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const fileInputRef = useRef<HTMLInputElement>(null)
 
-    const user = getSessionUser()
+    const user = useSessionUser()
     const [name, avatar, gender, init] = useUserStore((state) => [
         state.name,
         state.avatar,
@@ -71,7 +71,7 @@ export default function EditName() {
         setValue('name', name)
         setValue('gender', gender)
         setValue('avatar', avatar)
-    }, [name])
+    }, [name, gender, avatar, setValue])
 
     useEffect(() => {
         if (avatar) {

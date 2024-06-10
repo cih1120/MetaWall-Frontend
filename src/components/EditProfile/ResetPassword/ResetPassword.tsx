@@ -5,7 +5,7 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import MainButton from '@/components/Form/FormComponents/MainButton'
 import { updatePassword } from '@/service/auth.service'
 import { IUpdatePasswordReq } from '@/service/types'
-import { getSessionUser } from '@/lib/utils'
+import { useSessionUser } from '@/lib/utils'
 import Input from '@/components/Form/FormComponents/Input'
 
 export default function ResetPassword() {
@@ -20,7 +20,7 @@ export default function ResetPassword() {
     })
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const user = getSessionUser()
+    const user = useSessionUser()
 
     const onSubmit: SubmitHandler<IUpdatePasswordReq> = async (data) => {
         try {

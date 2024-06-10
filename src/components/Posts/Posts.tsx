@@ -5,7 +5,7 @@ import SearchBar from '@/components/Posts/SearchBar'
 import Post from '@/components/Posts/Post'
 import { IPost, IUser, TIME_SORT } from '@/types'
 import { getPosts, getPostByUser } from '@/service/posts.service'
-import { getSessionUser } from '@/lib/utils'
+import { useSessionUser } from '@/lib/utils'
 
 export default function Posts({
     posts,
@@ -22,7 +22,7 @@ export default function Posts({
     const [filterPost, setFilterPost] = useState<IPost[]>([])
     const [query, setQuery] = useState('')
     const [isLoading, setIsLoading] = useState(true)
-    const currentUser = getSessionUser()
+    const currentUser = useSessionUser()
 
     const refreshPosts = async () => {
         setIsLoading(true)

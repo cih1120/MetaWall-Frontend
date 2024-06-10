@@ -14,37 +14,41 @@ export default function TabMenu() {
     const { onOpen } = addPostModalStore()
     const pathName = usePathname()
 
-    const homePageButtons: MenuType[] = [
-        {
-            type: 'modal',
-            icon: <PlusIcon className="size-6" />,
-            onClick: onOpen,
-        },
-    ]
+    const homePageButtons: MenuType[] = useMemo(() => {
+        return [
+            {
+                type: 'modal',
+                icon: <PlusIcon className="size-6" />,
+                onClick: onOpen,
+            },
+        ]
+    }, [])
 
-    const commonPageButtons: MenuType[] = [
-        {
-            type: 'link',
-            icon: <HomeIcon className="size-6 text-primary-light" />,
-            url: '/',
-        },
-        {
-            type: 'link',
-            icon: <BellIcon className="size-6 text-primary-light" />,
-            url: '/',
-        },
-        {
-            type: 'link',
-            icon: <Cog8ToothIcon className="size-6 text-primary-light" />,
-            url: '/setting',
-        },
-    ]
+    const commonPageButtons: MenuType[] = useMemo(() => {
+        return [
+            {
+                type: 'link',
+                icon: <HomeIcon className="size-6 text-primary-light" />,
+                url: '/',
+            },
+            {
+                type: 'link',
+                icon: <BellIcon className="size-6 text-primary-light" />,
+                url: '/',
+            },
+            {
+                type: 'link',
+                icon: <Cog8ToothIcon className="size-6 text-primary-light" />,
+                url: '/setting',
+            },
+        ]
+    }, [])
 
     const tabMenuButtons: MenuType[] = useMemo(() => {
         return pathName === '/'
             ? [...homePageButtons, ...commonPageButtons]
             : commonPageButtons
-    }, [pathName])
+    }, [pathName, commonPageButtons, homePageButtons])
 
     return (
         <ul className="fixed bottom-3 flex w-8/12 max-w-80 justify-around rounded-full border-2 border-b-4 border-gray-dark bg-gray-light px-4 py-2 md:hidden">

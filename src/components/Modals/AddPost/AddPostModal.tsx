@@ -10,7 +10,7 @@ import {
     Input,
 } from '@nextui-org/react'
 import toast from 'react-hot-toast'
-import { getSessionUser } from '@/lib/utils'
+import { useSessionUser } from '@/lib/utils'
 import { revalidateIndexPost } from '@/lib/action'
 import MainButton from '@/components/Form/FormComponents/MainButton'
 import TextArea from '@/components/Form/FormComponents/TextArea'
@@ -19,12 +19,12 @@ import { addPost, uploadPhoto } from '@/service/posts.service'
 import FileInput from '@/components/Form/FormComponents/FileInput'
 
 export default function AddPostModal() {
-    const user = getSessionUser()
+    const user = useSessionUser()
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure()
     const { init } = addPostModalStore()
     useEffect(() => {
         init(isOpen, onOpen, onOpenChange)
-    }, [])
+    }, [init, isOpen, onOpen, onOpenChange])
 
     const [postTitle, setPostTitle] = useState('')
     const [postContent, setPostContent] = useState('')

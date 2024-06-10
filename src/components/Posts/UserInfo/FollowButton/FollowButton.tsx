@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { useUserStore } from '@/store/user/userStore'
 import { IFollow } from '@/types'
-import { getSessionUser } from '@/lib/utils'
+import { useSessionUser } from '@/lib/utils'
 import { revalidateUserPage } from '@/lib/action'
 import { unFollowUser, followUser } from '@/service/user.service'
 import MainButton from '@/components/Form/FormComponents/MainButton'
@@ -14,7 +14,7 @@ export default function FollowButton({
     userId: string
     followers: IFollow[]
 }) {
-    const loggedInUse = getSessionUser()
+    const loggedInUse = useSessionUser()
     const [loggedInUserId] = useUserStore(useShallow((state) => [state.id]))
 
     const isFollowingUser = useMemo(() => {

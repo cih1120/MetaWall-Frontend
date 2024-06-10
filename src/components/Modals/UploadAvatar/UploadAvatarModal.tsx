@@ -16,7 +16,7 @@ import {
 import toast from 'react-hot-toast'
 import FileInput from '@/components/Form/FormComponents/FileInput'
 import { uploadAvatar } from '@/service/auth.service'
-import { getSessionUser } from '@/lib/utils'
+import { useSessionUser } from '@/lib/utils'
 
 export default function UploadAvatarModal({
     isOpen,
@@ -35,7 +35,7 @@ export default function UploadAvatarModal({
 }) {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const formDataRef = useRef<FormData | null>(null)
-    const user = getSessionUser()
+    const user = useSessionUser()
     const handleFileChange: ChangeEventHandler<HTMLInputElement> = (event) => {
         if (event.target.files && event.target.files.length > 0) {
             const file = event.target.files[0]

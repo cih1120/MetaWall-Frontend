@@ -4,7 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/solid'
 import { IPost, IComment } from '@/types'
 import { useUserStore } from '@/store/user/userStore'
 import { deleteComment } from '@/service/posts.service'
-import { getSessionUser } from '@/lib/utils'
+import { useSessionUser } from '@/lib/utils'
 import PostHeader from '../PostHeader'
 
 export default function PostComment({
@@ -16,10 +16,12 @@ export default function PostComment({
 }) {
     const { id: currentUserId } = useUserStore()
     const [isLoading, setIsLoading] = useState(false)
-    const user = getSessionUser()
+    const user = useSessionUser()
+
     const isPostAuthor = useMemo(() => {
         return currentUserId === comment.user['_id']
-    }, [comment])
+    }, [comment, currentUserId])
+
     const handleDelete = async () => {
         setIsLoading(true)
         const postResponse = await deleteComment(comment._id, user!.token)

@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { NextUIProvider } from '@nextui-org/react'
 import { Toaster } from 'react-hot-toast'
 import { useUserStore } from '@/store/user/userStore'
-import { getSessionUser } from '@/lib/utils'
+import { useSessionUser } from '@/lib/utils'
 import { getUserProfile } from '@/service/auth.service'
 
 export default function Provider({
@@ -12,7 +12,7 @@ export default function Provider({
     children: React.ReactNode
 }>) {
     const { init } = useUserStore()
-    const user = getSessionUser()
+    const user = useSessionUser()
     useEffect(() => {
         const fetchAndInitUser = async () => {
             if (user) {
@@ -22,7 +22,7 @@ export default function Provider({
         }
 
         fetchAndInitUser()
-    }, [user])
+    }, [user, init])
     return (
         <NextUIProvider>
             {children}

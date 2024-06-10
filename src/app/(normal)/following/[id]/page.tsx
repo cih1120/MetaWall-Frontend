@@ -15,7 +15,7 @@ export default async function FollowingPage({
         <>
             <PageTitle title={'我的追蹤名單'} />
             {userInfo.following.map((followingUser) => {
-                return <UserCard userInfo={followingUser} />
+                return <UserCard key={followingUser.user._id} userInfo={followingUser} />
             })}
         </>
     )

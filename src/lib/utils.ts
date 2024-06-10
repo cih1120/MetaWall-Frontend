@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react'
  * 用於：Client 端
  */
 
-export const getSessionUser = () => {
+export const useSessionUser = () => {
   const { data: session } = useSession()
   return session?.user || null
 }

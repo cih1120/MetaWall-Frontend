@@ -5,7 +5,7 @@ import { IPost } from '@/types'
 import { useUserStore } from '@/store/user/userStore'
 import { addComment } from '@/service/posts.service'
 import { ICommentReq } from '@/service/types'
-import { getSessionUser } from '@/lib/utils'
+import { useSessionUser } from '@/lib/utils'
 
 export default function PostCommentInput({
     postId,
@@ -15,7 +15,7 @@ export default function PostCommentInput({
     updatePostInfo: (updatePost: IPost) => void
 }) {
     const { avatar, name } = useUserStore()
-    const user = getSessionUser()
+    const user = useSessionUser()
     const [comment, setComment] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
