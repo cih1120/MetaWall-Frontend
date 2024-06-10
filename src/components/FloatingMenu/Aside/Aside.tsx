@@ -1,11 +1,11 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { HandThumbUpIcon, BellIcon } from '@heroicons/react/24/solid'
+import { BellIcon, Cog8ToothIcon } from '@heroicons/react/24/solid'
 import { addPostModalStore } from '@/store/modal/modalStore'
+import { useUserStore } from '@/store/user/userStore'
 import MainButton from '../../Form/FormComponents/MainButton'
 import { MenuType } from '../FloatingMenu'
-import { useUserStore } from '@/store/user/userStore'
 
 export default function Aside() {
     const { onOpen } = addPostModalStore()
@@ -20,9 +20,9 @@ export default function Aside() {
         },
         {
             type: 'link',
-            value: '我按讚的文章',
-            icon: <HandThumbUpIcon className="size-6 text-primary-light" />,
-            url: '/',
+            value: '修改資料',
+            icon: <Cog8ToothIcon className="size-6 text-primary-light" />,
+            url: '/setting',
         },
     ]
 

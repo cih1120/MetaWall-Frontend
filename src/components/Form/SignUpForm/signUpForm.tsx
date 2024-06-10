@@ -40,11 +40,10 @@ export default function SignUpForm() {
     const onSubmit: SubmitHandler<ISignUpReq> = async (data) => {
         try {
             await signUp(data)
-            toast.success("註冊成功🎉請重新登入！")
-            setTimeout(()=>{
+            toast.success('註冊成功🎉請重新登入！')
+            setTimeout(() => {
                 router.push('/auth/login')
-            },1000)
-            
+            }, 1000)
         } catch (err) {
             const error = err as ApiError
             const statusCode = error.statusCode
@@ -162,7 +161,7 @@ export default function SignUpForm() {
                             },
                             validate: (val: string) => {
                                 if (watch('password') != val) {
-                                    return 'Your passwords do no match'
+                                    return '密碼與確認密碼不符合！'
                                 }
                             },
                         })}

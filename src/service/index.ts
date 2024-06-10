@@ -73,6 +73,22 @@ const api = {
       throw new ApiError('Error retrieving data:', statusCode);
     }
   },
+  patch: async ({ baseUrl: newBaeUrl, url, queries, token, body }: IApiPost) => {
+    try {
+      let reqUrl = `${newBaeUrl || baseUrl}${url}`;
+      if (queries) {
+        reqUrl += `?${Object.keys(queries).map(k => `${k}=${queries[k]}`).join("&")}`
+      }
+
+      let config = token ? authConfig(token) : defaultConfig;
+      const res = await axios.patch(reqUrl, body, config);
+      return res.data;
+    } catch (error) {
+      console.error('Error retrieving data:', error);
+      const statusCode = (error as AxiosError)?.response?.status || 500;
+      throw new ApiError('Error retrieving data:', statusCode);
+    }
+  },
   delete: async ({ baseUrl: newBaeUrl, url, token }: IApiPost) => {
     try {
       let reqUrl = `${newBaeUrl || baseUrl}${url}`;

@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { signOut } from 'next-auth/react'
 import Avatar from '@/components/Avatar'
 import { useUserStore } from '@/store/user/userStore'
-import { getSessionUser } from '@/lib/utils'
 
 export default function DropMenu() {
     const { id, name, avatar } = useUserStore()

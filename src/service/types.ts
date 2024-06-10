@@ -52,6 +52,11 @@ export interface ISignUpReq extends IApiQueries {
   gender: Gender
 }
 
+export interface IUpdatePasswordReq extends IApiQueries {
+  password: string,
+  confirmPassword: string,
+}
+
 export interface ISignInReq extends IApiQueries {
   email: string
   password: string
@@ -61,6 +66,12 @@ export interface ISignInRes {
   user: {
     token: TokenType,
   } & IUserProfile
+}
+
+export interface IUserProfileReq extends IApiQueries {
+  name?: string,
+  avatar?: string,
+  gender?: Gender,
 }
 
 export interface IUserProfileRes {

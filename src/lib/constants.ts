@@ -2,8 +2,10 @@ export const AUTH_URL = {
   SIGN_IN: "/users/sign_in",
   SIGN_UP: "/users/sign_up",
   USER_PROFILE: "/users/profile",
+  UPLOAD_AVATAR: '/users/profile/avatar',
   UPDATE_PASSWORD: "/users/update_password",
-  PROFILE_AVATAR: "/users/profile/avatar"
+  PROFILE_AVATAR: "/users/profile/avatar",
+  PROFILE_PATCH: "/users/profile"
 }
 
 export const POSTS_URL = {
@@ -22,6 +24,7 @@ export const USER_URL = {
   UPLOAD_PHOTO: '/posts/photo',
   FOLLOW_USER: (userId: string) => `/users/${userId}/follow`,
   UN_FOLLOW_USER: (userId: string) => `/users/${userId}/un_follow`,
+
 }
 
 export const BREAK_POINTS = {

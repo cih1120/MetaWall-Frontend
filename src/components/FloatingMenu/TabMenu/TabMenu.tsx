@@ -3,7 +3,7 @@ import { Button } from '@nextui-org/react'
 import { addPostModalStore } from '@/store/modal/modalStore'
 import {
     HomeIcon,
-    HandThumbUpIcon,
+    Cog8ToothIcon,
     BellIcon,
     PlusIcon,
 } from '@heroicons/react/24/solid'
@@ -35,8 +35,8 @@ export default function TabMenu() {
         },
         {
             type: 'link',
-            icon: <HandThumbUpIcon className="size-6 text-primary-light" />,
-            url: '/',
+            icon: <Cog8ToothIcon className="size-6 text-primary-light" />,
+            url: '/setting',
         },
     ]
 

@@ -13,9 +13,14 @@ interface IButtonProps
 }
 
 const buttonVariants = cva(
-    'w-full flex items-center overflow-hidden justify-center border-2 border-gray-dark py-4 font-bold transition',
+    ' flex items-center overflow-hidden justify-center border-2 border-gray-dark font-bold transition',
     {
         variants: {
+            size: {
+                lg: 'w-full py-4',
+                md: 'w-auto px-4 py-2',
+                sm: 'w-auto px-2',
+            },
             background: {
                 primary: 'bg-primary text-white',
                 accent: 'bg-accent text-black',
@@ -33,6 +38,7 @@ const buttonVariants = cva(
             },
         },
         defaultVariants: {
+            size: 'lg',
             background: 'primary',
             shape: 'square',
             solid: 'normal',
@@ -41,6 +47,7 @@ const buttonVariants = cva(
 )
 
 export default function Button({
+    size,
     background,
     shape,
     solid,
@@ -56,6 +63,7 @@ export default function Button({
             className={twMerge(
                 clsx(
                     buttonVariants({
+                        size,
                         background: isDisabled ? 'disabled' : background,
                         shape,
                         solid: isDisabled ? 'disabled' : solid,

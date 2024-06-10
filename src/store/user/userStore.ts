@@ -11,6 +11,7 @@ const useUserStore = create<IUserStore>((set) => ({
   createdAt: null,
   followers: [],
   following: [],
+  likes: [],
   init: (userProfile: Partial<IUserProfile>) => set((state) => ({ ...state, ...userProfile })),
 }))
 
