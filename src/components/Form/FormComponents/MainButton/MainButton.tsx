@@ -72,7 +72,7 @@ export default function Button({
                 className
             )}
             type={buttonType ? buttonType : 'button'}
-            disabled={isDisabled}
+            disabled={isDisabled || isLoading}
             {...props}
         >
             {isLoading && (

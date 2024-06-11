@@ -1,4 +1,6 @@
 'use client'
+import { useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { ApiError } from 'next/dist/server/api-utils'
@@ -8,9 +10,11 @@ import Input from '@/components/Form/FormComponents/Input'
 import RadioGroup from '@/components/Form/FormComponents/RadioGroup'
 import { signUp } from '@/service/auth.service'
 import AuthFormLayout, { setErrorMessage } from '../AuthForm'
+import MainButton from '@/components/Form/FormComponents/MainButton'
 
 export default function SignUpForm() {
     const router = useRouter()
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const {
         register,
@@ -39,6 +43,7 @@ export default function SignUpForm() {
 
     const onSubmit: SubmitHandler<ISignUpReq> = async (data) => {
         try {
+            setIsLoading(true)
             await signUp(data)
             toast.success('註冊成功🎉請重新登入！')
             setTimeout(() => {
@@ -50,6 +55,7 @@ export default function SignUpForm() {
                 ? error.statusCode.toString()
                 : '500'
             setErrorMessage(errorConfig, setError, statusCode)
+            setIsLoading(false)
         }
     }
 
@@ -59,7 +65,7 @@ export default function SignUpForm() {
     ]
 
     return (
-        <AuthFormLayout onSubmit={handleSubmit(onSubmit)} formType="signup">
+        <AuthFormLayout onSubmit={handleSubmit(onSubmit)}>
             <Controller
                 name="name"
                 control={control}
@@ -168,6 +174,25 @@ export default function SignUpForm() {
                     />
                 )}
             />
+            <div className="w-full space-y-2">
+                <MainButton
+                    isLoading={isLoading}
+                    solid="strong"
+                    buttonType="submit"
+                >
+                    註冊
+                </MainButton>
+
+                <Link
+                    href="/auth/login"
+                    className="group relative m-6 mx-auto block w-max pb-1 text-sm"
+                >
+                    <span className="relative z-10 px-2 group-hover:text-gray-dark">
+                        登入
+                    </span>
+                    <span className="absolute bottom-0 left-0 z-0 h-0.5 w-full bg-accent transition-all group-hover:h-full "></span>
+                </Link>
+            </div>
         </AuthFormLayout>
     )
 }
