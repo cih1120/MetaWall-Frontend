@@ -12,7 +12,7 @@ export default function Posts({
     userId,
 }: {
     posts: IPost[]
-    userId?: IUser['_id']
+    userId?: IUser['id']
 }) {
     const data: { value: TIME_SORT; label: string }[] = [
         { value: TIME_SORT.DESC, label: '最新' },
@@ -66,7 +66,7 @@ export default function Posts({
                     <Post />
                 ) : (
                     filterPost.map((post) => {
-                        return <Post data={post} key={post._id} />
+                        return <Post data={post} key={post.id} />
                     })
                 )}
             </ul>

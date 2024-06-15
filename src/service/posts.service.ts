@@ -17,7 +17,7 @@ export const getPosts = (token: TokenType, queries?: IPostReq) => {
 }
 
 /* 取得特定貼文 */
-export const getPostById = (token: TokenType, id: IPost["_id"]) => {
+export const getPostById = (token: TokenType, id: IPost["id"]) => {
     return api
         .get({ token, url: `${POSTS_URL.POSTS}/${id}` })
         .then((res: IApiResult<IPost>) => {
@@ -26,7 +26,7 @@ export const getPostById = (token: TokenType, id: IPost["_id"]) => {
             } else {
                 return {
                     user: "",
-                    _id: "",
+                    id: "",
                     title: "",
                     content: "",
                     createdAt: "",
@@ -39,7 +39,7 @@ export const getPostById = (token: TokenType, id: IPost["_id"]) => {
 }
 
 /* 取得特定用戶貼文 */
-export const getPostByUser = (token: TokenType, id: IUser["_id"], queries?: IPostReq) => {
+export const getPostByUser = (token: TokenType, id: IUser["id"], queries?: IPostReq) => {
     return api
         .get({ token, url: POSTS_URL.USER_POSTS(id), queries })
         .then((res: IApiResult<IPost[]>) => {

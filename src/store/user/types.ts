@@ -1,5 +1,5 @@
 import { IUserProfile } from "@/types";
 
-export interface IUserStore extends Omit<IUserProfile, "_id"> {
+export interface IUserStore extends IUserProfile {
   init: (userProfile: Partial<IUserProfile>) => void;
 }

@@ -11,7 +11,7 @@ export default function PostCommentInput({
     postId,
     updatePostInfo,
 }: {
-    postId: IPost['_id']
+    postId: IPost['id']
     updatePostInfo: (updatePost: IPost) => void
 }) {
     const { avatar, name } = useUserStore()

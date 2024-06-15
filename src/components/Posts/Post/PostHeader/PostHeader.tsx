@@ -17,7 +17,7 @@ export default function PostHeader({ user, createdAt }: IPostHeader) {
         <div className="flex gap-4">
             <Avatar src={user?.avatar} name={user?.name} />
             <div>
-                <Link href={`/${user?._id}`} className="font-bold">
+                <Link href={`/${user?.id}`} className="font-bold">
                     {user?.name}
                 </Link>
                 <p className="text-xs font-extralight text-gray">

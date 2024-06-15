@@ -8,7 +8,7 @@ export const signUp = (data: ISignUpReq) => {
     .post({ url: AUTH_URL.SIGN_UP, body: data })
     .then((res: IApiResult<ISignInRes>) => {
       if (res?.status === "success" && res?.data) {
-        return res.data.user
+        return res.data
       } else {
         throw new ApiError('Unexpected response format', 500);
       }
@@ -21,7 +21,7 @@ export const signIn = (data: ISignInReq) => {
     .post({ url: AUTH_URL.SIGN_IN, body: data })
     .then((res: IApiResult<ISignInRes>) => {
       if (res?.status === "success" && res?.data) {
-        return res.data.user;
+        return res.data;
       } else {
         throw new ApiError('Unexpected response format', 500);
       }

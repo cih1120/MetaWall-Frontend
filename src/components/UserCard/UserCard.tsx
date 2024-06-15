@@ -27,7 +27,7 @@ export default function UserCard({ userInfo }: { userInfo: IFollow }) {
             <div className="flex w-full items-end rounded-md border-2 border-gray-dark bg-white px-4 py-5">
                 <Avatar src={user.avatar} name={user.name} isBordered={false} />
                 <div className="flex flex-1 items-center justify-between px-3">
-                    <Link href={`/${user._id}`}>
+                    <Link href={`/${user.id}`}>
                         <div>
                             <h3 className="font-bold">{user.name}</h3>
                             <h5 className="text-xs font-extralight text-gray">

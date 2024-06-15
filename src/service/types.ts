@@ -63,9 +63,8 @@ export interface ISignInReq extends IApiQueries {
 }
 
 export interface ISignInRes {
-  user: {
-    token: TokenType,
-  } & IUserProfile
+  token: TokenType,
+  user: IUserProfile
 }
 
 export interface IUserProfileReq extends IApiQueries {

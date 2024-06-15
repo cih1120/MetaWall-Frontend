@@ -19,12 +19,12 @@ export default function PostComment({
     const user = useSessionUser()
 
     const isPostAuthor = useMemo(() => {
-        return currentUserId === comment.user['_id']
+        return currentUserId === comment.user['id']
     }, [comment, currentUserId])
 
     const handleDelete = async () => {
         setIsLoading(true)
-        const postResponse = await deleteComment(comment._id, user!.token)
+        const postResponse = await deleteComment(comment.id, user!.token)
         updatePostInfo(postResponse)
         toast.success('刪除成功！')
         setIsLoading(false)

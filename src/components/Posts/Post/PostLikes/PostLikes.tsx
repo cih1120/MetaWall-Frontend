@@ -11,7 +11,7 @@ export default function PostLikes({
     postId,
 }: {
     likes: IPost['likes']
-    postId: IPost['_id']
+    postId: IPost['id']
 }) {
     const user = useSessionUser()
     const { id: userId } = useUserStore()

@@ -21,7 +21,7 @@ export default function FollowButton({
 
     const isFollowingUser = useMemo(() => {
         return followers.some((follower) => {
-            return follower.user._id === loggedInUserId
+            return follower.user.id === loggedInUserId
         })
     }, [loggedInUserId, followers])
 

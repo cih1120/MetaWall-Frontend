@@ -14,7 +14,7 @@ const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         try {
           if (!credentials) throw Error("")
-          const res = await signIn(credentials);
+          const res = await signIn(credentials) as NextAuthUserType;
           return res
         } catch (err) {
           return { error: err, id: "" }
@@ -27,6 +27,8 @@ const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
+      console.log("signIn")
+      console.log(user)
       const typedUser = user as NextAuthUserType;
       if ('error' in typedUser) {
         throw new Error(typedUser.error.statusCode.toString())
@@ -39,11 +41,12 @@ const authOptions: NextAuthOptions = {
     },
     async session({ session, user, token }) {
       if (typeof token.token === "string") {
-        session.user.token = token.token;
+        session.token = token.token;
       }
       return session
     },
     async jwt({ token, user, account, profile }) {
+      console.log(user)
       if (user) {
         token.token = user.token;
       }

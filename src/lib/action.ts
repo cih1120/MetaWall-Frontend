@@ -24,5 +24,5 @@ export async function revalidateUserPage() {
 
 export async function getServerSessionUser() {
   const res = await getServerSession(authOptions)
-  return res?.user || null
+  return res || null
 }

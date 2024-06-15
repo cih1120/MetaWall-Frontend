@@ -34,13 +34,13 @@ export default function Post({ data }: { data?: IPost }) {
                             <p>{data.content}</p>
                         </div>
                         {data.photo && (
-                            <PostPhoto id={data._id} src={data.photo} />
+                            <PostPhoto id={data.id} src={data.photo} />
                         )}
                     </div>
-                    <PostLikes postId={data._id} likes={data.likes} />
+                    <PostLikes postId={data.id} likes={data.likes} />
                     <PostCommentInput
                         updatePostInfo={updatePostInfo}
-                        postId={data._id}
+                        postId={data.id}
                     />
                     <CommentList
                         updatePostInfo={updatePostInfo}
@@ -80,7 +80,7 @@ const CommentList = ({
                     .reverse()
                     .map((comment) => (
                         <PostComment
-                            key={comment._id}
+                            key={comment.id}
                             updatePostInfo={updatePostInfo}
                             comment={comment}
                         />
@@ -89,7 +89,7 @@ const CommentList = ({
     )
 }
 
-const PostPhoto = ({ id, src }: { id: IPost['_id']; src: IPost['photo'] }) => {
+const PostPhoto = ({ id, src }: { id: IPost['id']; src: IPost['photo'] }) => {
     return (
         <Link href={`/p/${id}`} scroll={false}>
             <Image

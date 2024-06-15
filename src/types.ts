@@ -1,18 +1,17 @@
 export interface IUser {
-  _id: string,
+  id: string,
   name: string,
   avatar?: string,
 }
 
 export interface IUserProfile extends IUser {
-  id: string,
   gender?: Gender,
   email: string,
   createdAt: Date | null,
   followers: IFollow[],
   following: IFollow[],
   likes: {
-    _id: string,
+    id: string,
     createdAt: Date
   }[]
 }
@@ -24,14 +23,14 @@ export interface IFollow {
 
 export interface IComment {
   user: IUser,
-  _id: string,
+  id: string,
   comment: string,
   createdAt: Date,
 }
 
 export interface IPost {
   user: IUser,
-  _id: string,
+  id: string,
   title: string,
   content: string,
   createdAt: Date,
