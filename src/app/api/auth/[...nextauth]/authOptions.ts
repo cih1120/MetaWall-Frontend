@@ -27,8 +27,6 @@ const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      console.log("signIn")
-      console.log(user)
       const typedUser = user as NextAuthUserType;
       if ('error' in typedUser) {
         throw new Error(typedUser.error.statusCode.toString())
@@ -46,8 +44,7 @@ const authOptions: NextAuthOptions = {
       return session
     },
     async jwt({ token, user, account, profile }) {
-      console.log(user)
-      if (user) {
+      if (user && 'token' in user) {
         token.token = user.token;
       }
       return token
