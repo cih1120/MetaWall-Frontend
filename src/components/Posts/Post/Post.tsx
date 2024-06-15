@@ -6,6 +6,7 @@ import PostHeader from './PostHeader'
 import PostComment from './PostComment'
 import PostLikes from './PostLikes'
 import PostCommentInput from './PostCommentInput'
+import Link from 'next/link'
 
 export default function Post({ data }: { data?: IPost }) {
     const [comments, setComments] = useState<IComment[]>([])
@@ -32,7 +33,9 @@ export default function Post({ data }: { data?: IPost }) {
                             <p className=" font-semibold">{data.title}</p>
                             <p>{data.content}</p>
                         </div>
-                        {data.photo && <PostPhoto src={data.photo} />}
+                        {data.photo && (
+                            <PostPhoto id={data._id} src={data.photo} />
+                        )}
                     </div>
                     <PostLikes postId={data._id} likes={data.likes} />
                     <PostCommentInput
@@ -86,14 +89,16 @@ const CommentList = ({
     )
 }
 
-const PostPhoto = ({ src }: { src: IPost['photo'] }) => {
+const PostPhoto = ({ id, src }: { id: IPost['_id']; src: IPost['photo'] }) => {
     return (
-        <Image
-            src={src!}
-            width={500}
-            height={500}
-            alt=""
-            className="mb-4 max-h-[300px] w-full rounded-lg border-2 border-gray-dark object-cover"
-        />
+        <Link href={`/p/${id}`} scroll={false}>
+            <Image
+                src={src!}
+                width={500}
+                height={500}
+                alt=""
+                className="mb-4 max-h-[300px] w-full rounded-lg border-2 border-gray-dark object-cover"
+            />
+        </Link>
     )
 }

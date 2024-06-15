@@ -3,8 +3,9 @@ import AddPostModal from '@/components/Modals/AddPost'
 import FloatingMenu from '@/components/FloatingMenu'
 
 export default async function Layout({
+    photoModal,
     children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{ photoModal: React.ReactNode; children: React.ReactNode }>) {
     return (
         <section className="pt-20">
             <Header />
@@ -16,7 +17,7 @@ export default async function Layout({
                     <FloatingMenu />
                 </section>
             </main>
-
+            {photoModal}
             <AddPostModal />
         </section>
     )
