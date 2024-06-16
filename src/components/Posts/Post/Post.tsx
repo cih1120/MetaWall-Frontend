@@ -96,7 +96,7 @@ const PostPhoto = ({ id, src }: { id: IPost['id']; src: IPost['photo'] }) => {
                 src={src!}
                 width={500}
                 height={500}
-                alt=""
+                alt={id}
                 className="mb-4 max-h-[300px] w-full rounded-lg border-2 border-gray-dark object-cover"
             />
         </Link>

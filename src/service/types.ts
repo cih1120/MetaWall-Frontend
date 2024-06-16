@@ -30,6 +30,7 @@ export interface IUploadRes {
 export interface IPostReq extends IApiQueries {
   timeSort: TIME_SORT,
   q?: string
+  page?: number
 }
 
 export interface INewPostReq extends IApiQueries {
