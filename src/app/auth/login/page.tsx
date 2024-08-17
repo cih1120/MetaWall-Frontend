@@ -2,7 +2,7 @@ import LoginForm from '@/components/Form/LoginForm'
 
 export default async function LoginPage() {
     return (
-        <div className="flex flex-col justify-center gap-y-5">
+        <div className="flex w-full flex-col justify-center md:gap-y-5">
             <div className="text-center">
                 <h1 className="font-paytOne text-5xl font-black text-primary">
                     MetaWall

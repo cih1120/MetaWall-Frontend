@@ -13,15 +13,15 @@ export default async function AuthLayout({
         redirect('/')
     }
     return (
-        <section className="flex h-screen w-full items-center justify-center">
-            <div className="back-rectangle relative flex h-fit min-h-[430px] w-9/12 max-w-3xl items-center justify-center border-2 border-gray-dark bg-gray-light py-6">
-                <div className="flex justify-between space-x-11">
+        <section className="flex w-full justify-center py-4 md:h-screen md:items-center">
+            <div className="back-rectangle relative flex h-fit min-h-[430px] w-11/12 max-w-3xl items-center justify-center border-2 border-gray-dark bg-gray-light px-5 py-6">
+                <div className="flex w-full flex-col-reverse items-center justify-between gap-y-6 md:flex-row md:space-x-11">
                     <Image
                         src={welcome_img}
                         width={350}
                         height={340}
                         alt="MetaWall"
-                        className=""
+                        className="w-72 md:w-[350px]"
                     />
                     {children}
                 </div>
