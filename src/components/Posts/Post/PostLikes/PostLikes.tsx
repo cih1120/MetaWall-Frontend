@@ -33,17 +33,17 @@ export default function PostLikes({
     }
 
     const handlePostLike = async () => {
-        await postLike(postId, user!.token)
         setPostLikes((pre) => (pre += 1))
         setHasUserWithId(true)
         setIsShaking(true)
+        await postLike(postId, user!.token)
     }
 
     const handlePostUnLike = async () => {
-        await postUnLike(postId, user!.token)
         setPostLikes((pre) => (pre -= 1))
         setHasUserWithId(false)
         setIsShaking(true)
+        await postUnLike(postId, user!.token)
     }
 
     const Icon = useMemo(() => {
